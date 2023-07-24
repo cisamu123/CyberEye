@@ -1,0 +1,20 @@
+====================
+  MODDED CHANGELOG
+====================
+
+Modded Version 1.0.0.0 (Released: 24.07.2023):
+
+- Added AssemblyInfo changes in config.cs.
+- Added the Beep function (HZ).
+- Added the Cycle function, which starts any process in a cycle, such as %temp% or cmd.exe.
+- Added hiding/unhiding of the tray.
+- Added a function to set the cursor position to a random location.
+- Added a compiler for VB.NET and C#.
+- Added hide/unhide file or directory.
+- Added a WiFi info stealer.
+- Added a function to enable or disable the Registry Editor.
+- Added a function to enable or disable Windows Defender.
+- Added a function to enable or disable CMD.
+- Added a function to enable or disable System Restore.
+- Added getting the windows user screen resolution.
+- Added checking if RAT started with admin rights.
