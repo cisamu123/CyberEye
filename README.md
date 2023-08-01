@@ -32,5 +32,9 @@ AssemblyInfoChanging(config.cs), Beep, Cycle, Tray, SetRandomCurPos, Compiler, D
   ![](images/openMalware.JPG)  
 * Write `/help` to see all available commands.  
 
-#
+# :moneybag: Donate:
+**BTC:** `bc1q5exw2v9sa0yktp2t7xnq8ma2xpn5a29s7w283y`  
+**ETH:** `0x8d797249170d263B959A3c688D8456adBcfBC319`  
+**XMR:** `0xF978FE35d00A201eB48aB3908993e14f312001a2`  
+
 <h1><a href = "https://github.com/LimerBoy/ToxicEye">👽 ORIGINAL RAT VERSION</a></h1>
