@@ -3,6 +3,14 @@ Modded Program for remote control of windows computers via telegram bot. Written
 <p align="center">
   <img src="images/logo.jpg">
 </p>
+<div id="badges" align="center">
+  <a href="https://t.me/CodQu">
+    <img src="https://img.shields.io/badge/Telegram-blue?style=for-the-badge&logo=telegram&logoColor=white" alt="LinkedIn Badge"/>
+  </a>
+    <a href="https://t.me/Cisamu">
+    <img src="https://img.shields.io/badge/Join%20My%20Telegram%20Channel-blue?style=for-the-badge&logo=telegram&logoColor=white" alt="LinkedIn Badge"/>
+  </a>
+</div>
 
 # :fallen_leaf: Original Functions:
 ComputerInfo, BatteryInfo, Location, Whois, ActiveWindow, Webcam, Microphone, Desktop, Keylogger, ClipboardSet, ClipboardGet, ProcessList, ProcessKill, ProcessStart, TaskManagerDisable, TaskManagerEnable, MinimizeAllWindows, MaximizeAllWindows, GetPasswords, GetCreditCards, GetHistory, GetBookmarks, GetCookies, GetDesktop, GetFileZilla, GetDiscord, GetTelegram, GetSteam, OpenCD, CloseCD, DownloadFile, UploadFile, RunFile, RunFileAdmin, ListFiles, RemoveFile, RemoveDir, MoveFile, MoveDir, CopyFile, CopyDir, Speak, Shell, MessageBox, OpenURL, SendKeyPress, NetDiscover, AudioVolumeSet, AudioVolumeGet, SetWallPaper, BlockInput, Monitor(off/on), DisplayRotate, EncryptFileSystem, DecryptFileSystem,ForkBomb, BsoD, OverwriteBootSector, Shutdown, Reboot, Hibernate, Logoff, Help, About, Uninstall.
