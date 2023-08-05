@@ -26,8 +26,8 @@ AssemblyInfoChanging(config.cs), Beep, Cycle, Tray, SetRandomCurPos, Compiler, D
   ![](images/vs.JPG)  
 * Download the [source code](https://github.com/cisamu123/CyberEye/archive/refs/heads/main.zip) of this program.  
   ![](images/loadSourceCode.JPG)  
-* Unzip the “Telegram RAT” folder to your desktop.  
-* Open the TelegramRAT.sln file through Visual Studio.  
+* Unzip the source code folder to your desktop.  
+* Open the NetKey.py file through IDE or default text editor.  
 * Open file config.cs in project.  
   ![](images/openConfig.JPG)  
 * Insert your token from the bot and your chatID that you received earlier.  
