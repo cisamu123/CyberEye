@@ -1,4 +1,4 @@
-﻿/* 
+/* 
        * Original Version
 
        ^ Author    : LimerBoy
@@ -85,7 +85,7 @@ namespace TelegramRAT
         public const string AssemblyCopyright = "Copyright © 2023";
         public const string AssemblyTrademark = "";
         public const string AssemblyCulture = "";
-        public const string AssemblyVersion = "1.0.0.0";
-        public const string AssemblyFileVersion = "1.0.0.0";
+        public const string AssemblyVersion = "1.0.1";
+        public const string AssemblyFileVersion = "1.0.1";
     }
 }
