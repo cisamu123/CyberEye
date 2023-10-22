@@ -2,7 +2,7 @@
   MODDED CHANGELOG
 ====================
 
-Modded Version 1.0.0.0 (Released: 24.07.2023):
+Modded Version 1.0.0 (Released: 24.07.2023):
 
 - Added AssemblyInfo changes in config.cs.
 - Added the Beep function (HZ).
@@ -18,3 +18,7 @@ Modded Version 1.0.0.0 (Released: 24.07.2023):
 - Added a function to enable or disable System Restore.
 - Added getting the windows user screen resolution.
 - Added checking if RAT started with admin rights.
+
+Modded Version 1.0.1 (Released: 22.10.2023):
+
+- Added Bug Report
