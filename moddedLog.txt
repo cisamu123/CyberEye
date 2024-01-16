@@ -22,3 +22,7 @@ Modded Version 1.0.0 (Released: 24.07.2023):
 Modded Version 1.0.1 (Released: 22.10.2023):
 
 - Added Bug Report
+
+Modded Version 1.0.2 (Released: 16.01.2024):
+
+- Added Minecraft Stealer
