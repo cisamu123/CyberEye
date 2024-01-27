@@ -26,3 +26,8 @@ Modded Version 1.0.1 (Released: 22.10.2023):
 Modded Version 1.0.2 (Released: 16.01.2024):
 
 - Added Minecraft Stealer
+
+Bug Fix (Released: 27.01.2024):
+
+- Minecraft stealer - If an archive in the Minecraft folder with all the data exists, the program automatically deletes the old archive and replaces it with a new one so that there is no error
+- Project File - the stealer folder was not contains by the project folder in visual studio file explorer
