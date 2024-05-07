@@ -43,6 +43,10 @@ AssemblyInfoChanging(config.cs), Beep, Cycle, Tray, SetRandomCurPos, Compiler, D
   ![](images/openMalware.JPG)  
 * Write `/help` to see all available commands.  
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=cisamu123/CyberEye&type=Date)](https://star-history.com/#cisamu123/CyberEye&Date)
+
 # :moneybag: Donate:
 **BTC:** `bc1q5exw2v9sa0yktp2t7xnq8ma2xpn5a29s7w283y`  
 **ETH:** `0x8d797249170d263B959A3c688D8456adBcfBC319`  
