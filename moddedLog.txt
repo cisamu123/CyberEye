@@ -31,3 +31,11 @@ Bug Fix (Released: 27.01.2024):
 
 - Minecraft stealer - If an archive in the Minecraft folder with all the data exists, the program automatically deletes the old archive and replaces it with a new one so that there is no error
 - Project File - the stealer folder was not contains by the project folder in visual studio file explorer
+
+Bug Fix & Added New Command (Released: 22.07.2024):
+
+- Command Added: /CamList - 📷 Lists all available webcams with their index and name, making it easy to see what devices are connected!
+
+- Fixed ChangeDateTime command
+Bug: /ChangeDateTime ignored arguments and set a fixed date.
+Fix: Now parses and applies user-provided date and time values correctly.
