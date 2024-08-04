@@ -39,3 +39,9 @@ Bug Fix & Added New Command (Released: 22.07.2024):
 - Fixed ChangeDateTime command
 Bug: /ChangeDateTime ignored arguments and set a fixed date.
 Fix: Now parses and applies user-provided date and time values correctly.
+
+Updated Desktop Screenshot Method & Added New Command (Released: 04.08.2024):
+
+- Command Added: /MonitorList - 🖥️ Lists all available monitors with their index and name, making it easy to see what devices are connected!
+
+- Now I have updated the Desktop Screenshot method, and it is now possible to take a screenshot of the monitor you need.
