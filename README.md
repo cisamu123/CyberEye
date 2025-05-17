@@ -20,7 +20,52 @@ ComputerInfo, BatteryInfo, Location, Whois, ActiveWindow, Webcam, Microphone, De
 
 # Ⓜ Modded Functions:
 AssemblyInfoChanging(config.cs), Beep, Cycle, Tray, SetRandomCurPos, Compiler, DirOrFile, Wifi_Steal, Regedit, Windefender, Cmd, SystemRestore, ScreenResolution, isAdmin, BugReport, Minecraft, CamList, MonitorList.
-# :hammer: Compiling guide:  
+# :hammer: Compiling guide using Builder:  
+
+* Go to the [@BotFather](https://t.me/BotFather) bot and create your own bot. You need to save the token and bot name.  
+  ![](images/createBot.JPG)  
+* Now you need to get your chat id. To do this, go to the next bot [@chatid_echo_bot](https://t.me/chatid_echo_bot) and save the id.  
+  ![](images/chatidBot.JPG)  
+* Now you need to download [Latest stable release](https://github.com/cisamu123/CyberEye/releases)  
+  ![](images/DownloadAndUnzipBuilder.jpg)  
+* After downloading the `.zip` archive, extract it to any folder on your system.  
+* Inside the extracted folder, run the file `CyberEye.Client.Builder.exe`  
+  ![](images/ExecuteBuilder.jpg)
+* ⚠️ **Important:** Make sure to also move the entire `Stub` folder (included in the archive) to the **same directory** as the Builder.  
+  Without the `Stub` folder in the correct location, the builder will not be able to generate the final payload.
+* In the builder, fill in the required fields:  
+  - **Bot Token** (from [@BotFather](https://t.me/BotFather))  
+  - **Chat ID** (from [@chatid_echo_bot](https://t.me/chatid_echo_bot))  
+  - Enable optional features using checkboxes (e.g., Autorun, BSOD Protection, etc.)
+
+* Click **Build**, then choose where to save the final `.exe` payload.
+  ![](images/BuilderBuild.jpg)
+
+✅ That’s it — no need to touch Visual Studio. Just fill, click, and deploy!
+* You can send the generated .exe payload to your target machine.  
+* After starting the file, you can control the computer through the bot.  
+  ![](images/openMalware.JPG)  
+* Write `/help` to see all available commands.  
+### **This release introduces a new standalone payload builder for CyberEye RAT, enabling users to generate customized payloads with ease.**
+
+## 🔑 Key Features
+
+> Creating and customizing your own RAT has never been easier.  
+> With the new **Builder**, you no longer need to open Visual Studio, manually edit config files, or compile the project yourself.  
+> Simply run the Builder, fill in your desired options, and generate a fully working stub with just one click.
+
+### 🧱 Builder Highlights
+- **No coding required** – Everything is done through a user-friendly GUI.
+- **Instant build** – Generates a ready-to-use executable without needing Visual Studio or any compiler setup.
+- **Secure Telegram Integration** – Easily input your bot token and chat ID.
+- **Fully configurable** – Set all options directly from the Builder (admin rights, startup behavior, delay, wallet stealer, etc.).
+
+---
+
+> Developed by **Cisamu**  
+> Now enhanced with an easy-to-use Builder to streamline your workflow.
+
+# :hammer: Alternative (OLD) Compiling guide using Visual Studio:  
 * Go to the [@BotFather](https://t.me/BotFather) bot and create your own bot. You need to save the token and bot name.  
   ![](images/createBot.JPG)  
 * Now you need to get your chat id. To do this, go to the next bot [@chatid_echo_bot](https://t.me/chatid_echo_bot) and save the id.  
