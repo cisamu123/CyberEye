@@ -28,8 +28,7 @@ using TelegramRAT;
 [assembly: AssemblyProduct(config.AssemblyProduct)]
 [assembly: AssemblyCopyright(config.AssemblyCopyright)]
 [assembly: AssemblyTrademark(config.AssemblyTrademark)]
-[assembly: AssemblyCulture(config.AssemblyCulture)]
-
+//[assembly: AssemblyCulture(config.AssemblyCulture)]
 // Установка значения False для параметра ComVisible делает типы в этой сборке невидимыми
 // для компонентов COM. Если необходимо обратиться к типу в этой сборке через
 // из модели COM задайте для атрибута ComVisible этого типа значение true.
